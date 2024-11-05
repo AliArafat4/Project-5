@@ -29,7 +29,7 @@ class ProjectsModel {
 
 class Data {
   int? id;
-  int? userId;
+  String? userId;
   String? name;
   String? description;
   String? state;

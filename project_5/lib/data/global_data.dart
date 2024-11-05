@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_5/main.dart';
 
+String link = "";
 bool isDarkTheme = pref.getTheme();
 String placeHolderImage =
     "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png";

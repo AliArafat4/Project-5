@@ -10,6 +10,7 @@ import 'package:project_5/navigations/navigation_methods.dart';
 import 'package:project_5/screens/auth/components/auth_button.dart';
 import 'package:project_5/screens/auth/components/auth_loading.dart';
 import 'package:project_5/screens/auth/components/auth_text_field.dart';
+import 'package:project_5/screens/profile/profile_screen.dart';
 import 'package:project_5/services/auth_api.dart';
 import 'package:project_5/widgets/snack_bar.dart';
 
@@ -24,8 +25,7 @@ class SignUpScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   // @override
   @override
@@ -38,10 +38,7 @@ class SignUpScreen extends StatelessWidget {
               SizedBox(height: context.getHeight() * .103),
               Image.asset("assets/images/sign_logo.png", scale: 3),
               SizedBox(height: context.getHeight() * .075),
-              AuthTextField(
-                  isPassword: false,
-                  content: "Name",
-                  controller: nameController),
+              AuthTextField(isPassword: false, content: "Name", controller: nameController),
               SizedBox(height: context.getHeight() * .019),
               AuthTextField(
                 isPassword: false,
@@ -49,15 +46,9 @@ class SignUpScreen extends StatelessWidget {
                 controller: emailController,
               ),
               SizedBox(height: context.getHeight() * .019),
-              AuthTextField(
-                  isPassword: false,
-                  content: "Phone",
-                  controller: phoneController),
+              AuthTextField(isPassword: false, content: "Phone", controller: phoneController),
               SizedBox(height: context.getHeight() * .019),
-              AuthTextField(
-                  isPassword: true,
-                  content: "Password",
-                  controller: passwordController),
+              AuthTextField(isPassword: true, content: "Password", controller: passwordController),
               SizedBox(height: context.getHeight() * .019),
               AuthTextField(
                   isPassword: true,
@@ -97,10 +88,12 @@ class SignUpScreen extends StatelessWidget {
                       ? navigation(
                           type: "push",
                           context: context,
-                          screen: OTPScreen(
-                            emailAddress: emailController.text,
-                            type: 'registration',
-                          ))
+                          screen: ProfileScreen(),
+                          // OTPScreen(
+                          //   emailAddress: emailController.text,
+                          //   type: 'registration',
+                          // )
+                        )
                       : const SizedBox();
                 },
               ),

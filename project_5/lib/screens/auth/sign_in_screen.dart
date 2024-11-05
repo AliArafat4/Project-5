@@ -5,6 +5,7 @@ import 'package:project_5/bloc/auth_bloc/auth_bloc.dart';
 import 'package:project_5/navigations/navigation_methods.dart';
 import 'package:project_5/screens/auth/components/auth_loading.dart';
 import 'package:project_5/screens/auth/otp_screen.dart';
+import 'package:project_5/screens/profile/profile_screen.dart';
 import 'package:project_5/widgets/sized_box.dart';
 import 'package:project_5/widgets/snack_bar.dart';
 import 'components/account_availability.dart';
@@ -26,15 +27,9 @@ class SignInScreen extends StatelessWidget {
               sizedBoxH(context: context, multiplier: .103),
               Image.asset("assets/images/sign_logo.png", scale: 3),
               sizedBoxH(context: context, multiplier: .09136),
-              AuthTextField(
-                  isPassword: false,
-                  content: "Email",
-                  controller: emailController),
+              AuthTextField(isPassword: false, content: "Email", controller: emailController),
               sizedBoxH(context: context, multiplier: .019),
-              AuthTextField(
-                  isPassword: true,
-                  content: "Password",
-                  controller: passwordController),
+              AuthTextField(isPassword: true, content: "Password", controller: passwordController),
               sizedBoxH(context: context, multiplier: .019),
               BlocConsumer<AuthBloc, AuthState>(
                 builder: (context, state) {
@@ -60,8 +55,10 @@ class SignInScreen extends StatelessWidget {
                       ? navigation(
                           context: context,
                           type: "push",
-                          screen: OTPScreen(
-                              emailAddress: state.email, type: state.type))
+                          screen: ProfileScreen(),
+                          // OTPScreen(
+                          //     emailAddress: state.email, type: state.type)
+                        )
                       : const SizedBox();
                 },
               ),

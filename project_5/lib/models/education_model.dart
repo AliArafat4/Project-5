@@ -7,6 +7,7 @@ class EducationModel {
 
   EducationModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
+
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
@@ -29,7 +30,7 @@ class EducationModel {
 
 class Data {
   int? id;
-  int? userId;
+  String? userId;
   String? graduationDate;
   String? university;
   String? college;
@@ -48,7 +49,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
-    graduationDate = json['graduation_date'];
+    graduationDate = json['gradDate'];
     university = json['university'];
     college = json['college'];
     specialization = json['specialization'];
@@ -59,7 +60,7 @@ class Data {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
-    data['graduation_date'] = graduationDate;
+    data['gradDate'] = graduationDate;
     data['university'] = university;
     data['college'] = college;
     data['specialization'] = specialization;

@@ -24,6 +24,7 @@ class _DisplayUsersScreenState extends State<DisplayUsersScreen> {
 
   loadData() async {
     usersModelData = getUsers();
+
     setState(() {});
   }
 
@@ -34,6 +35,7 @@ class _DisplayUsersScreenState extends State<DisplayUsersScreen> {
       body: FutureBuilder(
         future: usersModelData,
         builder: (context, snapshot) {
+          print(snapshot);
           if (snapshot.hasData) {
             UsersModel usersModel = snapshot.data;
             return ListView.builder(
@@ -42,8 +44,7 @@ class _DisplayUsersScreenState extends State<DisplayUsersScreen> {
                 onTap: () {
                   navigation(
                     context: context,
-                    screen:
-                        UsersDetailsScreen(userModel: usersModel.data![index]),
+                    screen: UsersDetailsScreen(userModel: usersModel.data![index]),
                     type: "push",
                   );
                 },
@@ -53,15 +54,14 @@ class _DisplayUsersScreenState extends State<DisplayUsersScreen> {
                       CircleAvatar(
                         radius: 30,
                         backgroundColor: Colors.grey,
-                        foregroundImage: usersModel.data![index].image != null
-                            ? NetworkImage(usersModel.data![index].image!)
+                        foregroundImage: usersModel.data![index].about?.image != null
+                            ? NetworkImage(usersModel.data![index].about?.image ?? "")
                             : NetworkImage(placeHolderImage),
                       ),
                       Expanded(
                         child: ListTile(
                           title: Text("${usersModel.data![index].name}"),
-                          subtitle:
-                              Text(usersModel.data?[index].about ?? "No Bio"),
+                          subtitle: Text(usersModel.data?[index].about?.about ?? "No Bio"),
                         ),
                       ),
                     ],

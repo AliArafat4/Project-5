@@ -64,8 +64,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 ? CustomAppBar(
                     hasAction: true,
                     currentUser: state.aboutModel,
-                    title:
-                        "Profile ${state.aboutModel.data?.name?.toUpperCase() ?? "..."}")
+                    title: "Profile ${state.aboutModel.data?.first.name?.toUpperCase() ?? "..."}")
                 : const CustomAppBar(hasAction: true, title: "Profile ...");
           },
         ),
@@ -84,12 +83,11 @@ class ProfileScreenState extends State<ProfileScreen> {
               listener: (BuildContext context, AboutState state) {
                 if (state is AboutChangeBioState) {
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Bio has been changed successfully")));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Bio has been changed successfully")));
                 }
                 if (state is AboutErrorState) {
-                  customSnackBar(
-                      context: context, message: "No Image was selected");
+                  customSnackBar(context: context, message: "No Image was selected");
                 }
               },
             ),
@@ -101,11 +99,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               },
             ),
 
-            const Divider(
-                thickness: .8,
-                indent: 16,
-                endIndent: 16,
-                color: Color(0xffded3fc)),
+            const Divider(thickness: .8, indent: 16, endIndent: 16, color: Color(0xffded3fc)),
 
             //--Education--
             BlocConsumer<EducationCubit, EducationState>(
@@ -135,14 +129,13 @@ class ProfileScreenState extends State<ProfileScreen> {
               listener: (BuildContext context, EducationState state) {
                 if (state is EducationAddState) {
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Education has been added")));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text("Education has been added")));
                 }
                 if (state is EducationErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       behavior: SnackBarBehavior.floating,
-                      margin:
-                          EdgeInsets.only(bottom: (context.getHeight() * .5)),
+                      margin: EdgeInsets.only(bottom: (context.getHeight() * .5)),
                       content: Text(state.errMsg)));
                 }
               },
@@ -153,14 +146,13 @@ class ProfileScreenState extends State<ProfileScreen> {
               listener: (context, state) {
                 if (state is SkillsAddState) {
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Skill has been added")));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text("Skill has been added")));
                 }
                 if (state is SkillsErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       behavior: SnackBarBehavior.floating,
-                      margin:
-                          EdgeInsets.only(bottom: (context.getHeight() * .5)),
+                      margin: EdgeInsets.only(bottom: (context.getHeight() * .5)),
                       content: Text(state.errMsg)));
                 }
               },
@@ -177,8 +169,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                           content: "Skills",
                           isSkills: true,
                           onPressedFunc: () {
-                            context.read<SkillsCubit>().addSkillsCubit(
-                                skillsController: skillsController);
+                            context
+                                .read<SkillsCubit>()
+                                .addSkillsCubit(skillsController: skillsController);
                           },
                         );
                       },
@@ -194,14 +187,13 @@ class ProfileScreenState extends State<ProfileScreen> {
               listener: (context, state) {
                 if (state is ProjectsAddState) {
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Project has been added")));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text("Project has been added")));
                 }
                 if (state is ProjectsErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       behavior: SnackBarBehavior.floating,
-                      margin:
-                          EdgeInsets.only(bottom: (context.getHeight() * .5)),
+                      margin: EdgeInsets.only(bottom: (context.getHeight() * .5)),
                       content: Text(state.errMsg)));
                 }
               },
@@ -214,8 +206,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       onPressedFunc: () {
                         projectsModalBottomSheet(context,
                             projectNameController: projectNameController,
-                            projectDescriptionController:
-                                projectDescriptionController,
+                            projectDescriptionController: projectDescriptionController,
                             content: "Project",
                             state: state);
                       },
@@ -232,7 +223,7 @@ class ProfileScreenState extends State<ProfileScreen> {
         builder: (context, state) {
           return state is AboutGetDataState
               ? SelectableText(
-                  "${state.aboutModel.data?.email ?? "..."}\n${state.aboutModel.data?.phone ?? "..."}")
+                  "${state.aboutModel.data?.first.email ?? "..."}\n${state.aboutModel.data?.first.phone ?? "..."}")
               : const Text("...");
         },
       ),

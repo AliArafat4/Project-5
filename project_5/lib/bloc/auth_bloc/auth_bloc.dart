@@ -30,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthLoginErrorState(errorMsg: "Email or Password are incorrect"));
         }
       } else {
+        emit(LoadingState(isLoading: false));
         emit(AuthLoginErrorState(errorMsg: 'Please Fill The Required Fields'));
       }
     });
@@ -53,7 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             name: event.userName,
             email: event.email,
             password: event.password,
-            phone: event.phone,
+            //phone: event.phone,
           );
 
           if (response.toLowerCase() == "ok") {
@@ -67,26 +68,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(LoadingState(isLoading: false));
         }
       } else {
+        emit(LoadingState(isLoading: false));
         emit(AuthRegisterErrorState(errorMsg: 'Please Fill The Required Fields'));
       }
     });
 
-    on<OTPEvent>((event, emit) async {
-      emit(LoadingState(isLoading: true));
-      if (event.otpCode.length < 6) {
-        emit(AuthOTPErrorState(errorMsg: "Please Enter OTP"));
-        emit(LoadingState(isLoading: false));
-      } else {
-        final response =
-            await verificationApi(otp: event.otpCode, email: event.email, type: event.type);
-        if (response.toLowerCase() == "ok") {
-          emit(LoadingState(isLoading: false));
-          emit(AuthOTPSuccessState());
-        } else {
-          emit(AuthOTPErrorState(errorMsg: "Wrong OTP $response"));
-          emit(LoadingState(isLoading: false));
-        }
-      }
-    });
+    // on<OTPEvent>((event, emit) async {
+    //   emit(LoadingState(isLoading: true));
+    //   if (event.otpCode.length < 6) {
+    //     emit(AuthOTPErrorState(errorMsg: "Please Enter OTP"));
+    //     emit(LoadingState(isLoading: false));
+    //   } else {
+    //     final response =
+    //         await verificationApi(otp: event.otpCode, email: event.email, type: event.type);
+    //     if (response.toLowerCase() == "ok") {
+    //       emit(LoadingState(isLoading: false));
+    //       emit(AuthOTPSuccessState());
+    //     } else {
+    //       emit(AuthOTPErrorState(errorMsg: "Wrong OTP $response"));
+    //       emit(LoadingState(isLoading: false));
+    //     }
+    //   }
+    // });
   }
 }

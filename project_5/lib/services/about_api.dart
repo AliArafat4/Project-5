@@ -1,17 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:project_5/data/global_data.dart';
 import 'package:project_5/main.dart';
 import 'package:project_5/models/error_model.dart';
 import '../models/about_model.dart';
 
 Future getAboutApi() async {
-  final url = Uri.parse("https://bacend-fshi.onrender.com/user/about");
+  final url = Uri.parse("$link/user/get/about");
 
-  final response = await http.get(url, headers: {
-    "content-Type": "application/json",
-    "authorization": pref.getToken()
-  });
+  final response =
+      await http.get(url, headers: {"content-Type": "application/json", "token": pref.getToken()});
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return AboutModel.fromJson(json.decode(response.body));
@@ -25,13 +24,10 @@ Future getAboutApi() async {
 }
 
 Future uploadAboutImageApi({required File image}) async {
-  final url = Uri.parse("https://bacend-fshi.onrender.com/user/upload");
+  final url = Uri.parse("$link/user/upload/avatar");
 
   final response = await http.post(url,
-      headers: {
-        "content-Type": "application/json",
-        "authorization": pref.getToken()
-      },
+      headers: {"content-Type": "application/json", "token": pref.getToken()},
       body: await image.readAsBytes());
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return AboutModel.fromJson(json.decode(response.body));
@@ -51,7 +47,7 @@ Future putDataAboutApi(
     required String location,
     required String birthday,
     required String about}) async {
-  final url = Uri.parse("https://bacend-fshi.onrender.com/user/edit/about");
+  final url = Uri.parse("$link/user/edit/about");
   final bday = DateTime.now();
   final data = {
     "name": name,
@@ -59,14 +55,11 @@ Future putDataAboutApi(
     "phone": phone,
     "location": location,
     "birthday": "$bday",
-    "about": about,
+    "bio": about,
   };
   final response = await http.put(
     url,
-    headers: {
-      "content-Type": "application/json",
-      "authorization": pref.getToken()
-    },
+    headers: {"content-Type": "application/json", "token": pref.getToken()},
     body: jsonEncode(data),
   );
   if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -81,11 +74,9 @@ Future putDataAboutApi(
 }
 
 Future deleteAccount() async {
-  final url = Uri.parse("https://bacend-fshi.onrender.com/user/delete_account");
-  final response = await http.delete(url, headers: {
-    "content-Type": "application/json",
-    "authorization": pref.getToken()
-  });
+  final url = Uri.parse("$link/user/delete_account");
+  final response = await http
+      .delete(url, headers: {"content-Type": "application/json", "token": pref.getToken()});
 
   if (response.statusCode >= 200 && response.statusCode < 300) {
     return "Account Deleted";

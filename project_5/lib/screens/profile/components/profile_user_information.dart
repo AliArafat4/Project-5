@@ -18,9 +18,7 @@ class ProfileUserInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    state is AboutInitial
-        ? context.read<AboutCubit>().getAboutDataCubit()
-        : const SizedBox();
+    state is AboutInitial ? context.read<AboutCubit>().getAboutDataCubit() : const SizedBox();
     return SizedBox(
       child: state is AboutGetDataState
           ? Column(
@@ -41,8 +39,9 @@ class ProfileUserInformation extends StatelessWidget {
                           : CircleAvatar(
                               radius: 50,
                               backgroundImage: NetworkImage(
-                                  state.aboutModel.data.image ??
-                                      placeHolderImage),
+                                  state.aboutModel.data?.first.image.length == 3
+                                      ? placeHolderImage
+                                      : state.aboutModel.data?.first.image),
                             )),
                 ),
                 Padding(
@@ -54,7 +53,7 @@ class ProfileUserInformation extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${state.aboutModel.data?.name}  ${state.aboutModel.data?.titlePosition ?? ""}",
+                            "${state.aboutModel.data?.first.name}  ${state.aboutModel.data?.first.titlePosition ?? ""}",
                             style: const TextStyle(fontSize: 24),
                           ),
                           InkWell(
@@ -69,18 +68,15 @@ class ProfileUserInformation extends StatelessWidget {
                                       name: state.aboutModel.data!.name!,
                                       position: positionController.text,
                                       phone: state.aboutModel.data!.phone!,
-                                      location:
-                                          "${state.aboutModel.data?.location}",
-                                      birthday:
-                                          "${state.aboutModel.data?.birthday}",
+                                      location: "${state.aboutModel.data?.location}",
+                                      birthday: "${state.aboutModel.data?.birthday}",
                                       bio: bioController.text);
                                 },
                               );
                             },
-                            child: state.aboutModel.data?.about != ""
+                            child: state.aboutModel.data?.first.bio != ""
                                 ? Text(
-                                    state.aboutModel.data?.about ??
-                                        "-You have no bio yet-",
+                                    state.aboutModel.data?.about ?? "-You have no bio yet-",
                                     style: const TextStyle(fontSize: 18),
                                   )
                                 : const Text("-You have no bio yet-",

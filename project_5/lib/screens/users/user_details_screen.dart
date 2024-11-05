@@ -6,8 +6,7 @@ import 'package:project_5/screens/profile/components/section_title.dart';
 import 'package:project_5/screens/reusable_widgets/custom_app_bar.dart';
 
 class UsersDetailsScreen extends StatelessWidget {
-  const UsersDetailsScreen({Key? key, required this.userModel})
-      : super(key: key);
+  const UsersDetailsScreen({Key? key, required this.userModel}) : super(key: key);
 
   final Data userModel;
   @override
@@ -26,18 +25,19 @@ class UsersDetailsScreen extends StatelessWidget {
               const SizedBox(height: 20),
               CircleAvatar(
                 radius: 50,
-                foregroundImage: userModel.image != null
-                    ? NetworkImage(userModel.image!)
+                foregroundImage: userModel.about?.image != null
+                    ? NetworkImage(userModel.about?.image ?? "")
                     : NetworkImage(placeHolderImage),
               ),
               Text("${userModel.name}"),
-              Text(userModel.about ?? "User has no Bio"),
+              Text(userModel.about?.about ?? "User has no Bio"),
               Text("${userModel.email}"),
               const Divider(),
               SectionTitle(
-                  title: "Education",
-                  iconData: Icons.school,
-                  onPressedFunc: () {}),
+                title: "Education",
+                iconData: Icons.school,
+                onPressedFunc: () {},
+              ),
               ...userModel.education!.map((e) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -47,7 +47,7 @@ class UsersDetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("${e.university?.toUpperCase()}"),
-                            Text("${e.graduationDate}"),
+                            Text("${e.gradDate}"),
                             Text("${e.level} of ${e.specialization}"),
                           ],
                         ),
@@ -55,25 +55,17 @@ class UsersDetailsScreen extends StatelessWidget {
                       const Divider(endIndent: 20, indent: 20),
                     ],
                   )),
-              SectionTitle(
-                  title: "Skills",
-                  iconData: Icons.rocket_launch,
-                  onPressedFunc: () {}),
+              SectionTitle(title: "Skills", iconData: Icons.rocket_launch, onPressedFunc: () {}),
               Padding(
                 padding: const EdgeInsets.only(left: 24.0),
                 child: Row(
                   children: [
-                    ...userModel.skills!
-                        .map((e) => Text("${e.skill}, "))
-                        .toList(),
+                    ...userModel.skills!.map((e) => Text("${e.skill}, ")).toList(),
                   ],
                 ),
               ),
               const Divider(),
-              SectionTitle(
-                  title: "Projects",
-                  iconData: Icons.note_alt,
-                  onPressedFunc: () {}),
+              SectionTitle(title: "Projects", iconData: Icons.note_alt, onPressedFunc: () {}),
               ...userModel.projects!.map((e) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

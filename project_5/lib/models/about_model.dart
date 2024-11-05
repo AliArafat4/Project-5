@@ -1,13 +1,18 @@
 class AboutModel {
   String? msg;
-  Data? data;
+  List<Data>? data;
   int? codeState;
 
   AboutModel({this.msg, this.data, this.codeState});
 
   AboutModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(Data.fromJson(v));
+      });
+    }
     codeState = json['codeState'];
   }
 
@@ -15,7 +20,7 @@ class AboutModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['msg'] = msg;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['codeState'] = codeState;
     return data;
@@ -25,52 +30,52 @@ class AboutModel {
 class Data {
   int? id;
   String? name;
-  String? email;
   String? titlePosition;
   String? phone;
   String? location;
   String? birthday;
-  String? about;
-  dynamic image;
-  String? createAt;
+  String? bio;
+  String? userId;
+  String? image;
+  String? email;
 
   Data(
       {this.id,
       this.name,
-      this.email,
       this.titlePosition,
       this.phone,
       this.location,
       this.birthday,
-      this.about,
+      this.bio,
+      this.userId,
       this.image,
-      this.createAt});
+      this.email});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    email = json['email'];
     titlePosition = json['title_position'];
     phone = json['phone'];
     location = json['location'];
     birthday = json['birthday'];
-    about = json['about'];
+    bio = json['bio'];
+    userId = json['user_id'];
     image = json['image'];
-    createAt = json['create_at'];
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
-    data['email'] = email;
     data['title_position'] = titlePosition;
     data['phone'] = phone;
     data['location'] = location;
     data['birthday'] = birthday;
-    data['about'] = about;
+    data['bio'] = bio;
+    data['user_id'] = userId;
     data['image'] = image;
-    data['create_at'] = createAt;
+    data['email'] = email;
     return data;
   }
 }

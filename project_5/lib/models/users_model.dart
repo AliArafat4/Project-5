@@ -29,66 +29,36 @@ class UsersModel {
 
 class Data {
   int? id;
-  String? idAuth;
-  String? name;
-  String? createAt;
-  String? titlePosition;
-  String? phone;
   String? email;
-  String? location;
-  String? birthday;
-  String? about;
-  String? image;
+  String? name;
+  String? userId;
+  About? about;
   List<Education>? education;
-  List<Skills>? skills;
-  List<SocialMedia>? socialMedia;
   List<Projects>? projects;
+  List<Skills>? skills;
+  List<Social>? social;
 
   Data(
       {this.id,
-      this.idAuth,
-      this.name,
-      this.createAt,
-      this.titlePosition,
-      this.phone,
       this.email,
-      this.location,
-      this.birthday,
+      this.name,
+      this.userId,
       this.about,
-      this.image,
       this.education,
+      this.projects,
       this.skills,
-      this.socialMedia,
-      this.projects});
+      this.social});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    idAuth = json['id_auth'];
-    name = json['name'];
-    createAt = json['create_at'];
-    titlePosition = json['title_position'];
-    phone = json['phone'];
     email = json['email'];
-    location = json['location'];
-    birthday = json['birthday'];
-    about = json['about'];
-    image = json['image'];
+    name = json['name'];
+    userId = json['user_id'];
+    about = json['bio'];
     if (json['education'] != null) {
       education = <Education>[];
       json['education'].forEach((v) {
         education!.add(Education.fromJson(v));
-      });
-    }
-    if (json['skills'] != null) {
-      skills = <Skills>[];
-      json['skills'].forEach((v) {
-        skills!.add(Skills.fromJson(v));
-      });
-    }
-    if (json['socialMedia'] != null) {
-      socialMedia = <SocialMedia>[];
-      json['socialMedia'].forEach((v) {
-        socialMedia!.add(SocialMedia.fromJson(v));
       });
     }
     if (json['projects'] != null) {
@@ -97,149 +67,205 @@ class Data {
         projects!.add(Projects.fromJson(v));
       });
     }
+    if (json['skills'] != null) {
+      skills = <Skills>[];
+      json['skills'].forEach((v) {
+        skills!.add(Skills.fromJson(v));
+      });
+    }
+    if (json['social'] != null) {
+      social = <Social>[];
+      json['social'].forEach((v) {
+        social!.add(Social.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['id_auth'] = idAuth;
-    data['name'] = name;
-    data['create_at'] = createAt;
-    data['title_position'] = titlePosition;
-    data['phone'] = phone;
     data['email'] = email;
-    data['location'] = location;
-    data['birthday'] = birthday;
+    data['name'] = name;
+    data['user_id'] = userId;
     data['about'] = about;
-    data['image'] = image;
+
     if (education != null) {
       data['education'] = education!.map((v) => v.toJson()).toList();
-    }
-    if (skills != null) {
-      data['skills'] = skills!.map((v) => v.toJson()).toList();
-    }
-    if (socialMedia != null) {
-      data['socialMedia'] = socialMedia!.map((v) => v.toJson()).toList();
     }
     if (projects != null) {
       data['projects'] = projects!.map((v) => v.toJson()).toList();
     }
+    if (skills != null) {
+      data['skills'] = skills!.map((v) => v.toJson()).toList();
+    }
+    if (social != null) {
+      data['social'] = social!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class About {
+  int? id;
+  String? name;
+  String? about;
+  String? image;
+  String? phone;
+  String? userId;
+  String? birthday;
+  String? location;
+  String? titlePosition;
+
+  About(
+      {this.id,
+      this.name,
+      this.about,
+      this.image,
+      this.phone,
+      this.userId,
+      this.birthday,
+      this.location,
+      this.titlePosition});
+
+  About.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    about = json['bio'];
+    image = json['image'];
+    phone = json['phone'];
+    userId = json['user_id'];
+    birthday = json['birthday'];
+    location = json['location'];
+    titlePosition = json['title_position'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['about'] = about;
+    data['image'] = image;
+    data['phone'] = phone;
+    data['user_id'] = userId;
+    data['birthday'] = birthday;
+    data['location'] = location;
+    data['title_position'] = titlePosition;
     return data;
   }
 }
 
 class Education {
   int? id;
-  int? userId;
-  String? graduationDate;
-  String? university;
-  String? college;
-  String? specialization;
   String? level;
+  String? college;
+  String? userId;
+  String? gradDate;
+  String? university;
+  String? specialization;
 
   Education(
       {this.id,
-      this.userId,
-      this.graduationDate,
-      this.university,
+      this.level,
       this.college,
-      this.specialization,
-      this.level});
+      this.userId,
+      this.gradDate,
+      this.university,
+      this.specialization});
 
   Education.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userId = json['user_id'];
-    graduationDate = json['graduation_date'];
-    university = json['university'];
-    college = json['college'];
-    specialization = json['specialization'];
     level = json['level'];
+    college = json['college'];
+    userId = json['user_id'];
+    gradDate = json['gradDate'];
+    university = json['university'];
+    specialization = json['specialization'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['user_id'] = userId;
-    data['graduation_date'] = graduationDate;
-    data['university'] = university;
-    data['college'] = college;
-    data['specialization'] = specialization;
     data['level'] = level;
-    return data;
-  }
-}
-
-class Skills {
-  int? id;
-  int? userId;
-  String? skill;
-
-  Skills({this.id, this.userId, this.skill});
-
-  Skills.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    skill = json['skill'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
+    data['college'] = college;
     data['user_id'] = userId;
-    data['skill'] = skill;
-    return data;
-  }
-}
-
-class SocialMedia {
-  int? id;
-  int? userId;
-  String? username;
-  String? social;
-
-  SocialMedia({this.id, this.userId, this.username, this.social});
-
-  SocialMedia.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    username = json['username'];
-    social = json['social'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['user_id'] = userId;
-    data['username'] = username;
-    data['social'] = social;
+    data['gradDate'] = gradDate;
+    data['university'] = university;
+    data['specialization'] = specialization;
     return data;
   }
 }
 
 class Projects {
   int? id;
-  int? userId;
   String? name;
-  String? description;
   String? state;
+  String? userId;
+  String? description;
 
-  Projects({this.id, this.userId, this.name, this.description, this.state});
+  Projects({this.id, this.name, this.state, this.userId, this.description});
 
   Projects.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userId = json['user_id'];
     name = json['name'];
-    description = json['description'];
     state = json['state'];
+    userId = json['user_id'];
+    description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['user_id'] = userId;
     data['name'] = name;
-    data['description'] = description;
     data['state'] = state;
+    data['user_id'] = userId;
+    data['description'] = description;
+    return data;
+  }
+}
+
+class Skills {
+  int? id;
+  String? skill;
+  String? userId;
+
+  Skills({this.id, this.skill, this.userId});
+
+  Skills.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    skill = json['skill'];
+    userId = json['user_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['skill'] = skill;
+    data['user_id'] = userId;
+    return data;
+  }
+}
+
+class Social {
+  int? id;
+  String? social;
+  String? userId;
+  String? userName;
+
+  Social({this.id, this.social, this.userId, this.userName});
+
+  Social.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    social = json['social'];
+    userId = json['user_id'];
+    userName = json['user_name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['social'] = social;
+    data['user_id'] = userId;
+    data['user_name'] = userName;
     return data;
   }
 }

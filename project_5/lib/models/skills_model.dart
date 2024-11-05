@@ -29,7 +29,7 @@ class SkillsModel {
 
 class Data {
   int? id;
-  int? userId;
+  String? userId;
   String? skill;
 
   Data({this.id, this.userId, this.skill});

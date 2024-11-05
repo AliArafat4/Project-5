@@ -29,7 +29,7 @@ class SocialModel {
 
 class Data {
   int? id;
-  int? userId;
+  String? userId;
   String? username;
   String? social;
 
@@ -38,7 +38,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
-    username = json['username'];
+    username = json['user_name'];
     social = json['social'];
   }
 
@@ -46,7 +46,7 @@ class Data {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
-    data['username'] = username;
+    data['user_name'] = username;
     data['social'] = social;
     return data;
   }
